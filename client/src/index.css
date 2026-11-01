@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  --g:    #00ff64;
+  --c:    #00bfff;
+  --bg:   #060b0f;
+  --sf:   #0c1820;
+  --bdr:  rgba(0, 255, 100, 0.13);
+  --mut:  #3a5a6a;
+  --txt:  #b0c8d8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg);
+  color: var(--txt);
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+}
+
+/* ── Cesium credit suppression ──────────────────────────────────────────── */
+.cesium-widget-credits,
+.cesium-credit-container,
+.cesium-credit-logoContainer,
+.cesium-credit-textContainer,
+.cesium-credit-expand,
+.cesium-credit-expand-link,
+#cesium_information_logotype,
+.cesium-viewer .cesium-credit-lightbox-overlay,
+.cesium-credit-lightbox { display: none !important; }
+
+/* ── Military animations ─────────────────────────────────────────────────── */
+
+@keyframes scanline-sweep {
+  0%   { top: -1px; opacity: 0; }
+  8%   { opacity: 0.8; }
+  92%  { opacity: 0.8; }
+  100% { top: 100%;  opacity: 0; }
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 6px var(--g), 0 0 12px var(--g); }
+  50%       { opacity: 0.2; box-shadow: none; }
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes threat-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* ── Utility classes ─────────────────────────────────────────────────────── */
+
+/* Sidebar scanning line */
+.mil-scanline {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,255,100,0.65) 50%, transparent 100%);
+  animation: scanline-sweep 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Live indicator dot */
+.mil-live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--g);
+  animation: live-pulse 1.5s ease-in-out infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Alert ticker */
+.mil-ticker-wrap {
+  overflow: hidden;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+
+.mil-ticker-inner {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  white-space: nowrap;
+  animation: ticker-scroll 30s linear infinite;
+}
+
+.mil-ticker-inner:hover { animation-play-state: paused; }
+
+/* Threat alert blink */
+.mil-threat-blink { animation: threat-blink 1s step-end infinite; }
+
+/* Mil input */
+.mil-input {
+  background: #080e14;
+  border: 1px solid var(--bdr);
+  color: var(--txt);
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 5px 8px;
+  outline: none;
+  caret-color: var(--g);
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.mil-input:focus { border-color: var(--g); }
+.mil-input::placeholder { color: var(--mut); }
+
+/* Mil button */
+.mil-btn {
+  background: none;
+  border: 1px solid var(--mut);
+  color: var(--mut);
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.mil-btn:hover { border-color: var(--g); color: var(--g); }
+.mil-btn.active { border-color: var(--g); color: var(--g); background: rgba(0,255,100,0.08); }
+
+/* Section divider label */
+.mil-section-label {
+  font-size: 9px;
+  color: var(--mut);
+  letter-spacing: 2px;
+  padding: 0 16px 5px;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "space-tracker-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "axios": "^1.13.6",
+    "better-sqlite3": "^12.8.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "kd-tree-javascript": "^1.0.3",
+    "node-cron": "^4.2.1",
+    "satellite.js": "^6.0.2"
+  }
+}
